@@ -5,18 +5,16 @@ import Layout from "./components/Layout";
 import "./App.css";
 
 function App() {
-  // State
+  const [darkMode, setDarkMode] = useState(true);
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
 
-  // Fetch coins
   useEffect(() => {
     getCoins().then((data) => {
       setCoins(data);
     });
   }, []);
 
-  // Filter coins
   const filteredCoins = coins.filter((coin) =>
     coin.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -24,28 +22,13 @@ function App() {
   if (!coins.length) return <p>Loading coins...</p>;
 
   return (
-    <Layout>
+    <Layout search={search} setSearch={setSearch}>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboard" element={
-          <>
-            {/* Search input inside dashboard */}
-            <input
-              type="text"
-              placeholder="Search coin..."
-              onChange={(e) => setSearch(e.target.value)}
-              style={{
-                padding: "8px",
-                marginBottom: "20px",
-                width: "250px",
-                borderRadius: "20px",
-                border: "none",
-                background: "#111827",
-                color: "white",
-              }}
-            />
 
-            {/* Coins Grid */}
+        <Route
+          path="/dashboard"
+          element={
             <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
               {filteredCoins.map((coin) => (
                 <div
@@ -65,9 +48,9 @@ function App() {
                 </div>
               ))}
             </div>
-          </>
-        } />
-        {/* Placeholder routes for others */}
+          }
+        />
+
         <Route path="/markets" element={<h2>Markets coming soon...</h2>} />
         <Route path="/transactions" element={<h2>Transactions coming soon...</h2>} />
         <Route path="/payment" element={<h2>Payment coming soon...</h2>} />

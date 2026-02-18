@@ -1,0 +1,68 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0f111a;
+    padding: 0 20px;
+    height: 45px;
+    color: white;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-center input {
+    width: 250px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: none;
+    background-color: #1c1f2e;
+    color: white;
+    font-size: 13px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.profile p {
+    margin: 0;
+}
+
+.profile small {
+    display: block;
+    color: #94a3b8;
+}
+
+.avatar {
+    background-color: purple;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

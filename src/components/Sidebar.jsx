@@ -10,7 +10,7 @@ export default function Sidebar() {
                 <li>Markets</li>
                 <li>Transactions</li>
                 <li>Payment</li>
-                <li>Info</li>
+                <li>Analytics</li>
             </ul>
         </div>
     );

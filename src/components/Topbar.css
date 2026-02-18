@@ -1,0 +1,19 @@
+.topbar {
+    height: 60px;
+    background: #020617;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.topbar input {
+    background: #111827;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    color: white;
+}
+
+.topbar input:focus {
+    outline: none;
+}

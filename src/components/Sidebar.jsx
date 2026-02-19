@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
 export default function Sidebar() {
@@ -6,11 +7,15 @@ export default function Sidebar() {
             <h2 className="logo">⚡ CryptoDashboard</h2>
 
             <ul className="menu">
-                <li className="active">Dashboard</li>
-                <li>Markets</li>
-                <li>Transactions</li>
-                <li>Payment</li>
-                <li>Analytics</li>
+                <li>
+                    <NavLink to="/dashboard" className={({ isActive }) => isActive ? "active" : ""}>
+                        Dashboard
+                    </NavLink>
+                </li>
+                <li><NavLink to="/markets">Markets</NavLink></li>
+                <li><NavLink to="/transactions">Transactions</NavLink></li>
+                <li><NavLink to="/payment">Payment</NavLink></li>
+                <li><NavLink to="/analytics">Analytics</NavLink></li>
             </ul>
         </div>
     );

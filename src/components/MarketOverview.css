@@ -1,0 +1,77 @@
+/* Wrapper section */
+.dashboard-top-section {
+  padding: 20px;               /* spacing inside top section */
+  background-color: #111827;   /* dark section background */
+  border-radius: 16px;
+  max-height: 220px; 
+  max-width: 300px;
+  overflow-y: auto;            /* vertical scroll if many coins */
+  margin-bottom: 20px;         /* spacing below this section */
+}
+
+/* MarketOverview internal layout */
+.market-overview {
+  display: flex;
+  flex-direction: column;
+}
+
+.market-overview h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.coins-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;             /* allows multiple rows if needed */
+  overflow-x: auto;            /* horizontal scroll if row too long */
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+}
+
+.coins-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.coins-container::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 3px;
+}
+
+/* Individual coin card */
+.coin-card {
+  min-width: 120px;
+  max-width: 120px;
+  background: #1f2937;
+  padding: 10px;               /* padding inside card only */
+  border-radius: 12px;
+  text-align: center;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coin-card img {
+  margin-bottom: 6px;
+}
+
+.coin-card h4 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.coin-card p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.positive {
+  color: #22c55e;
+  font-size: 12px;
+}
+
+.negative {
+  color: #ef4444;
+  font-size: 12px;
+}

@@ -1,3 +1,8 @@
+import MarketOverview from "./pages/MarketOverview";
+import Dashboard from "./pages/Dashboard";
+import Payment from "./pages/Payment";
+import Transactions from "./pages/Transactions";
+import Analytics from "./pages/Analytics";
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { getCoins } from "./services/api";
@@ -5,23 +10,12 @@ import Layout from "./components/Layout";
 import QuickTrade from "./components/QuickTrade";
 
 import "./App.css";
+import { Transactions } from "./pages/Transactions";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
-  const [coins, setCoins] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    getCoins().then((data) => {
-      setCoins(data);
-    });
-  }, []);
-
-  const filteredCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  if (!coins.length) return <p>Loading coins...</p>;
 
   return (
     <Layout search={search} setSearch={setSearch}>
@@ -31,40 +25,28 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <div style={{ display: "flex", gap: "20px" }}>
-
-              {/* LEFT SIDE - Market Cards */}
-              <div style={{ flex: 2, display: "flex", flexWrap: "wrap", gap: "15px" }}>
-                {filteredCoins.map((coin) => (
-                  <div
-                    key={coin.id}
-                    style={{
-                      background: "#111827",
-                      padding: "15px",
-                      borderRadius: "12px",
-                      width: "180px",
-                      color: "white",
-                      boxShadow: "0 4px 10px rgba(0,0,0,0.4)",
-                    }}
-                  >
-                    <img src={coin.image} alt={coin.name} width="40" />
-                    <h3>{coin.name}</h3>
-                    <p>${coin.current_price}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* RIGHT SIDE - Quick Trade Panel */}
-              <QuickTrade />
-
-            </div>
+            <Dashboard />
           }
         />
+        <Route
+          path="/market-overview"
+          element={
+            // <div>
+            //   {/* Top scrollable MarketOverview section */}
+            //   <div className="dashboard-top-section">
 
-        <Route path="/markets" element={<h2>Markets coming soon...</h2>} />
-        <Route path="/transactions" element={<h2>Transactions coming soon...</h2>} />
-        <Route path="/payment" element={<h2>Payment coming soon...</h2>} />
-        <Route path="/analytics" element={<h2>Analytics coming soon...</h2>} />
+            //   </div>
+
+            //   {/* Optional other dashboard sections */}
+            //   {/* You can add charts or coin list here */}
+            // </div>
+
+            <MarketOverview coins={filteredCoins} />
+          }
+        />
+        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/analytics" element={<Analytics />} />
       </Routes>
     </Layout>
   );

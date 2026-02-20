@@ -1,22 +1,15 @@
-import MarketOverview from "./pages/MarketOverview";
+import MarketOverview from "./components/MarketOverview";
 import Dashboard from "./pages/Dashboard";
 import Payment from "./pages/Payment";
 import Transactions from "./pages/Transactions";
 import Analytics from "./pages/Analytics";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { getCoins } from "./services/api";
 import Layout from "./components/Layout";
-import QuickTrade from "./components/QuickTrade";
-
-import "./App.css";
-import { Transactions } from "./pages/Transactions";
+import Markets from "./pages/Markets";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
   const [search, setSearch] = useState("");
-
-
   return (
     <Layout search={search} setSearch={setSearch}>
       <Routes>
@@ -25,23 +18,13 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <Dashboard />
+            <Dashboard search={search} />
           }
         />
         <Route
-          path="/market-overview"
+          path="/markets"
           element={
-            // <div>
-            //   {/* Top scrollable MarketOverview section */}
-            //   <div className="dashboard-top-section">
-
-            //   </div>
-
-            //   {/* Optional other dashboard sections */}
-            //   {/* You can add charts or coin list here */}
-            // </div>
-
-            <MarketOverview coins={filteredCoins} />
+            <Markets />
           }
         />
         <Route path="/transactions" element={<Transactions />} />

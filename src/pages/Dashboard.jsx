@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getCoins } from "../services/api";
 
-export function Dashboard() {
+export default function Dashboard() {
+    const search = "";
 
     const [coins, setCoins] = useState([]);
     useEffect(() => {
@@ -44,6 +45,8 @@ export function Dashboard() {
         </div>
 
         {/* RIGHT SIDE - Quick Trade Panel */}
+
+
 
 
     </div>

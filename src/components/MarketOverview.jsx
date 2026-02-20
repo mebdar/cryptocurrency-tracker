@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCoins } from "../services/api";
-import "../styles/MarketOverview.css";
+import "./MarketOverview.css";
 
 export default function MarketOverview() {
   const [coins, setCoins] = useState([]);
@@ -48,9 +48,8 @@ export default function MarketOverview() {
             <div>
               <p className="coin-price">${coin.current_price}</p>
               <span
-                className={`animated-percent ${
-                  coin.price_change_percentage_24h >= 0 ? "positive" : "negative"
-                }`}
+                className={`animated-percent ${coin.price_change_percentage_24h >= 0 ? "positive" : "negative"
+                  }`}
               >
                 {coin.price_change_percentage_24h?.toFixed(2)}%
               </span>

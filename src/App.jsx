@@ -6,7 +6,7 @@ import Analytics from "./pages/Analytics";
 import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
-import Markets from "./pages/Markets";
+import "./App.css";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -15,21 +15,28 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-        <Route
-          path="/dashboard"
-          element={
-            <Dashboard search={search} />
-          }
-        />
-        <Route
-          path="/markets"
-          element={
-            <Markets />
-          }
-        />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/analytics" element={<Analytics />} />
+      <Route
+  path="/dashboard"
+  element={
+    <div>
+      {/* Top scrollable MarketOverview section */}
+      <div className="dashboard-top-section">
+        <MarketOverview coins={filteredCoins} />
+      </div>
+
+      {/* Optional other dashboard sections */}
+      {/* You can add charts or coin list here */}
+    </div>
+  }
+/>
+
+
+
+
+        <Route path="/markets" element={<h2>Markets coming soon...</h2>} />
+        <Route path="/transactions" element={<h2>Transactions coming soon...</h2>} />
+        <Route path="/payment" element={<h2>Payment coming soon...</h2>} />
+        <Route path="/analytics" element={<h2>Analytics coming soon...</h2>} />
       </Routes>
     </Layout>
   );

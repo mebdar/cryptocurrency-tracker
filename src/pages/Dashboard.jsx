@@ -1,54 +1,39 @@
-import { useEffect, useState } from "react";
-import { getCoins } from "../services/api";
+import MarketOverview from "../components/MarketOverview";
 import QuickTrade from "../components/Quicktrade";
 
 export default function Dashboard() {
-    const search = "";
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: "20px",           // spacing between panels
+        padding: "20px",
+        width: "100%",
+        maxWidth: "1200px",    // prevents too wide layout
+        margin: "0 auto",      // center dashboard
+        boxSizing: "border-box",
+        minHeight: "100vh",    // fill screen height
+      }}
+    >
+      {/* LEFT SIDE - Market Overview */}
+      <div
+        style={{
+          flex: 0.6,           // smaller fraction, compact
+          minWidth: 0,         // allows inner scroll
+        }}
+      >
+        <MarketOverview />
+      </div>
 
-    const [coins, setCoins] = useState([]);
-    useEffect(() => {
-        getCoins().then((data) => {
-            setCoins(data);
-        });
-    }, []);
-
-    const filteredCoins = coins.filter((coin) =>
-        coin.name.toLowerCase().includes(search.toLowerCase())
-    );
-
-
-
-
-
-    if (!coins.length) return <p>Loading coins...</p>;
-
-    return <div style={{ display: "flex", gap: "20px" }}>
-
-        {/* LEFT SIDE - Market Cards */}
-        <div style={{ flex: 2, display: "flex", flexWrap: "wrap", gap: "15px" }}>
-            {filteredCoins.map((coin) => (
-                <div
-                    key={coin.id}
-                    style={{
-                        background: "#111827",
-                        padding: "15px",
-                        borderRadius: "12px",
-                        width: "180px",
-                        color: "white",
-                        boxShadow: "0 4px 10px rgba(0,0,0,0.4)",
-                    }}
-                >
-                    <img src={coin.image} alt={coin.name} width="40" />
-                    <h3>{coin.name}</h3>
-                    <p>${coin.current_price}</p>
-                </div>
-            ))}
-        </div>
-
-        {/* RIGHT SIDE - Quick Trade Panel */}
-        <div style={{ flex: 1 }}>
-            <QuickTrade />
-        </div>
-
+      {/* RIGHT SIDE - Quick Trade Panel */}
+      <div
+        style={{
+          flex: 0.4,
+          minWidth: 0,
+        }}
+      >
+        <QuickTrade />
+      </div>
     </div>
+  );
 }

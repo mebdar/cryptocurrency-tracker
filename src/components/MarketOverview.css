@@ -1,77 +1,151 @@
-/* Wrapper section */
-.dashboard-top-section {
-  padding: 20px;               /* spacing inside top section */
-  background-color: #111827;   /* dark section background */
+/* MarketOverview wrapper */
+.market-wrapper {
+  background: #111827;
+  padding: 16px;
   border-radius: 16px;
-  max-height: 220px; 
-  max-width: 300px;
-  overflow-y: auto;            /* vertical scroll if many coins */
-  margin-bottom: 20px;         /* spacing below this section */
+  width: 100%;
+  max-width: 360px;        /* compact width */
+  color: white;
+  max-height: 380px;       /* compact height */
+  overflow-y: auto;        /* vertical scroll */
+  overflow-x: hidden;      /* remove horizontal scroll */
+  margin-right: 20px;      /* spacing from QuickTrade */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  scroll-snap-type: y mandatory;
 }
 
-/* MarketOverview internal layout */
-.market-overview {
-  display: flex;
-  flex-direction: column;
+/* Scrollbar */
+.market-wrapper::-webkit-scrollbar {
+  width: 6px;
 }
 
-.market-overview h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.coins-container {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;             /* allows multiple rows if needed */
-  overflow-x: auto;            /* horizontal scroll if row too long */
-  padding-bottom: 10px;
-  scrollbar-width: thin;
-}
-
-.coins-container::-webkit-scrollbar {
-  height: 6px;
-}
-
-.coins-container::-webkit-scrollbar-thumb {
+.market-wrapper::-webkit-scrollbar-thumb {
   background: #6366f1;
+  border-radius: 3px;
+  border: 2px solid #111827;
+}
+
+.market-wrapper::-webkit-scrollbar-track {
+  background: #1f2937;
   border-radius: 3px;
 }
 
-/* Individual coin card */
-.coin-card {
-  min-width: 120px;
-  max-width: 120px;
+/* Firefox scrollbar */
+.market-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 #1f2937;
+}
+
+/* Title */
+.market-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tabs button {
   background: #1f2937;
-  padding: 10px;               /* padding inside card only */
-  border-radius: 12px;
-  text-align: center;
-  flex-shrink: 0;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 16px;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.tabs button.active,
+.tabs button:hover {
+  background: #374151;
+  color: white;
+}
+
+/* Vertical scroll container */
+.coins-scroll {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  max-height: 260px;       /* compact scroll area */
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  padding-right: 0;
+  margin-right: -6px;
+  scroll-snap-type: y mandatory;
+}
+
+/* Coin card */
+.coin-card {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  background: #1f2937;
+  padding: 8px 10px;
+  border-radius: 14px;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.3s;
+  cursor: pointer;
+  scroll-snap-align: start;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
-.coin-card img {
-  margin-bottom: 6px;
+.coin-card:hover {
+  background: #1e293b;
+  transform: translateX(4px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
 }
 
-.coin-card h4 {
+/* Left side: image + symbol */
+.coin-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.coin-left img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.coin-left h4 {
   margin: 0;
-  font-size: 14px;
-}
-
-.coin-card p {
-  margin: 4px 0;
   font-size: 13px;
 }
 
+.coin-price {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Percentage change */
 .positive {
   color: #22c55e;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .negative {
   color: #ef4444;
-  font-size: 12px;
+  font-size: 11px;
+}
+
+.animated-percent {
+  display: inline-block;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.coin-card:hover .animated-percent {
+  transform: scale(1.1);
+}
+
+.loading {
+  color: white;
+  text-align: center;
+  margin-top: 15px;
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { getCoins } from "./services/api";
 import Layout from "./components/Layout";
+import Transactions from "./components/transactions";
 import "./App.css";
 
 function App() {
@@ -29,13 +30,19 @@ function App() {
 
       <Route
   path="/dashboard"
+  
   element={
     <div>
       {/* Top scrollable MarketOverview section */}
       <div className="dashboard-top-section">
         <MarketOverview coins={filteredCoins} />
       </div>
+ {/* RIGHT — Transactions */}
+      <div className="dashboard-right">
+        <Transactions />
+      </div>
 
+    
       {/* Optional other dashboard sections */}
       {/* You can add charts or coin list here */}
     </div>
@@ -46,7 +53,7 @@ function App() {
 
 
         <Route path="/markets" element={<h2>Markets coming soon...</h2>} />
-        <Route path="/transactions" element={<h2>Transactions coming soon...</h2>} />
+        <Route path="/transactions" element={<Transactions />} />
         <Route path="/payment" element={<h2>Payment coming soon...</h2>} />
         <Route path="/analytics" element={<h2>Analytics coming soon...</h2>} />
       </Routes>

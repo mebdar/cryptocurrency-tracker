@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCoins } from "../services/api";
+import QuickTrade from "../components/Quicktrade";
 
 export default function Dashboard() {
     const search = "";
@@ -45,9 +46,9 @@ export default function Dashboard() {
         </div>
 
         {/* RIGHT SIDE - Quick Trade Panel */}
-
-
-
+        <div style={{ flex: 1 }}>
+            <QuickTrade />
+        </div>
 
     </div>
 }

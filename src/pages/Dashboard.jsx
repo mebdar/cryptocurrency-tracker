@@ -40,7 +40,7 @@ export default function Dashboard() {
             </div>
 
             {/* BOTTOM SECTION - Sales Chart */}
-            <div style={{ width: "100%", height: "350px" }}>
+            <div style={{ width: "80%", height: "250px" }}>
                 <SalesChart />
             </div>
         </div>

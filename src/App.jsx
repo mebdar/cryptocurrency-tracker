@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Markets from "./pages/Markets";
+import Information from "./pages/Information";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -30,6 +31,7 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/analytics" element={<Analytics />} />
+        <Route path="/information" element={<Information />} />
       </Routes>
     </Layout>
   );

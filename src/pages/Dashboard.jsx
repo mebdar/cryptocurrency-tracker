@@ -2,7 +2,7 @@ import SalesChart from "../components/SalesChart";
 import MarketOverview from "../components/MarketOverview";
 import QuickTrade from "../components/Quicktrade";
 
-export default function Dashboard() {
+export default function Dashboard({ search }) {
     return (
         <div
             style={{
@@ -25,7 +25,7 @@ export default function Dashboard() {
                         minWidth: 0,
                     }}
                 >
-                    <MarketOverview />
+                    <MarketOverview search={search} />
                 </div>
 
                 {/* RIGHT SIDE - Quick Trade Panel */}

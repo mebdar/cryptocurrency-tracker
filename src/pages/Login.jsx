@@ -6,7 +6,6 @@ function Login() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-
         // temporary login
         navigate("/dashboard");
     };
@@ -14,15 +13,32 @@ function Login() {
     return (
         <div className="auth-container">
             <form className="auth-card" onSubmit={handleLogin}>
-                <h2>Login</h2>
+                <h2 className="auth-title">Sign In</h2>
 
-                <input type="email" placeholder="Email" required />
-                <input type="password" placeholder="Password" required />
+                <label>Email Address</label>
+                <input type="email" placeholder="Example@gmail.com" required />
 
-                <button type="submit">Login</button>
+                <label>Password</label>
+                <div className="password-input">
+                    <input type="password" placeholder="********" required />
+                    <span className="toggle-password">👁️</span>
+                </div>
 
-                <p>
-                    Don’t have an account? <Link to="/signup">Sign up</Link>
+                <div className="auth-options">
+                    <label>
+                        <input type="checkbox" /> Remember Me
+                    </label>
+                    <Link to="/forgot-password" className="forgot-password">Forgot Password?</Link>
+                </div>
+
+                <button type="submit" className="auth-button">Sign In</button>
+
+                <p className="signup-text">
+                    Don’t Have An Account? <Link to="/signup">Sign Up</Link>
+                </p>
+
+                <p className="terms-text">
+                    By Proceeding, You Accept The <Link to="/terms">Terms & Conditions</Link> And <Link to="/privacy">Privacy Policy</Link> Of CryptoTracker.
                 </p>
             </form>
         </div>

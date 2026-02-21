@@ -37,7 +37,7 @@ function App() {
                 element={<Dashboard search={search} />}
               />
 
-              <Route path="/markets" element={<Markets />} />
+              <Route path="/markets" element={<Markets search={search} />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/analytics" element={<Analytics />} />

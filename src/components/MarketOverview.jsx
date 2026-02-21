@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getCoins } from "../services/api";
 import "./MarketOverview.css";
 
-export default function MarketOverview() {
+export default function MarketOverview({ search }) {
   const [coins, setCoins] = useState([]);
   const [tab, setTab] = useState("Popular"); // default tab
 
@@ -10,10 +10,14 @@ export default function MarketOverview() {
     getCoins().then((data) => setCoins(data));
   }, []);
 
-  const filteredCoins =
-    tab === "Popular"
-      ? coins.slice(0, 10)
-      : coins.slice(-10); // example: last 10 for "New Listing"
+  const filteredCoins = coins
+    .filter((coin) =>
+      coin.name.toLowerCase().includes(search?.toLowerCase() || "")
+    )
+    .slice(
+      tab === "Popular" ? 0 : -10,
+      tab === "Popular" ? 10 : undefined
+    );
 
   if (!coins.length) return <p className="loading">Loading coins...</p>;
 

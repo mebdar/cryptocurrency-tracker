@@ -1,40 +1,91 @@
 .sidebar {
-    width: 220px;
-    height: 30vh;
-    background: #03277b;
-    color: white;
-    padding: 20px;
-}
-
-.sidebar {
-    width: 220px;
+    width: 240px;
     height: 100vh;
     background: #0d2728;
     color: white;
-    padding: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
-.logo {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 25px;
-}
-
+/* Push card to bottom */
 .menu {
     list-style: none;
     padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 .menu li {
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    color: #9ca3af;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.menu li:hover,
-.menu .active {
-    background: #1f2937;
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
+}
+
+.nav-item:hover {
     color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+    background: #151515;
+    color: white;
+}
+
+.nav-item span {
+    font-size: 14px;
+}
+
+/* Upgrade Card - Slimmed */
+.upgrade-card {
+    background: #151515;
+    border-radius: 12px;
+    padding: 12px;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.upgrade-card h3 {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.upgrade-card p {
+    font-size: 11px;
+    color: #aaa;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+/* Button */
+.upgrade-btn {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background: #ff7a45;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.upgrade-btn:hover {
+    opacity: 0.9;
 }

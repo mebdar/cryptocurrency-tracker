@@ -32,7 +32,7 @@ export default function SalesChart() {
                 </select>
             </div>
 
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={data}>
                     <XAxis dataKey="name" />
                     <Tooltip />

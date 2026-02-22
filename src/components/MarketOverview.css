@@ -4,13 +4,18 @@
   padding: 16px;
   border-radius: 16px;
   width: 100%;
-  max-width: 360px;        /* compact width */
+  max-width: 360px;
+  /* compact width */
   color: white;
-  max-height: 380px;       /* compact height */
-  overflow-y: auto;        /* vertical scroll */
-  overflow-x: hidden;      /* remove horizontal scroll */
-  margin-right: 20px;      /* spacing from QuickTrade */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  max-height: 380px;
+  /* compact height */
+  overflow-y: auto;
+  /* vertical scroll */
+  overflow-x: hidden;
+  /* remove horizontal scroll */
+  margin-right: 20px;
+  /* spacing from QuickTrade */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   scroll-snap-type: y mandatory;
 }
 
@@ -72,7 +77,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 260px;       /* compact scroll area */
+  max-height: 260px;
+  /* compact scroll area */
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -98,7 +104,13 @@
 .coin-card:hover {
   background: #1e293b;
   transform: translateX(4px);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.coin-card.selected {
+  background: #374151;
+  border: 1px solid #6366f1;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
 }
 
 /* Left side: image + symbol */

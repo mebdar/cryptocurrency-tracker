@@ -1,8 +1,11 @@
+import { useState } from "react";
 import SalesChart from "../components/SalesChart";
 import MarketOverview from "../components/MarketOverview";
 import QuickTrade from "../components/Quicktrade";
 
 export default function Dashboard({ search }) {
+    const [selectedCoin, setSelectedCoin] = useState({ id: "bitcoin", name: "Bitcoin", symbol: "btc" });
+
     return (
         <div
             style={{
@@ -25,7 +28,11 @@ export default function Dashboard({ search }) {
                         minWidth: 0,
                     }}
                 >
-                    <MarketOverview search={search} />
+                    <MarketOverview
+                        search={search}
+                        onSelectCoin={setSelectedCoin}
+                        selectedCoinId={selectedCoin.id}
+                    />
                 </div>
 
                 {/* RIGHT SIDE - Quick Trade Panel */}
@@ -41,7 +48,10 @@ export default function Dashboard({ search }) {
 
             {/* BOTTOM SECTION - Sales Chart */}
             <div style={{ width: "80%", height: "250px" }}>
-                <SalesChart />
+                <SalesChart
+                    selectedCoin={selectedCoin}
+                    onSelectCoin={setSelectedCoin}
+                />
             </div>
         </div>
     );

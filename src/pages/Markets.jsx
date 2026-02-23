@@ -1,3 +1,11 @@
+import SalesChart from "../components/SalesChart";
+
 export default function Markets() {
-    return <h2>Markets</h2>;
+    return (
+        <div style={{ padding: "20px", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
+            <div style={{ width: "100%", maxWidth: "1000px" }}>
+                <SalesChart />
+            </div>
+        </div>
+    );
 }

@@ -1,29 +1,63 @@
 .sales-chart {
     background: #111827;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 16px;
     color: white;
+    height: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .sales-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
+}
+
+.sales-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.side-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.timeframe {
+    font-size: 10px;
+    font-weight: 700;
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
 }
 
 .sales-header select {
     background: #1f2937;
-    color: white;
-    border: none;
-    padding: 6px 12px;
+    color: #9ca3af;
+    border: 1px solid #374151;
+    padding: 4px 8px;
     border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.chart-container {
+    margin-top: -10px;
 }
 
 .legend {
     display: flex;
     gap: 15px;
-    margin-top: 10px;
-    font-size: 12px;
-    opacity: 0.8;
+    margin-top: 5px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.legend span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }

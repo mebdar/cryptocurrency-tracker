@@ -33,18 +33,44 @@ function Signup() {
       return;
     }
 
-    const { error } = await supabase.auth.signUp({
+    const { data: authData, error: authError } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
+      options: {
+        data: {
+          username: formData.username,
+          full_name: formData.fullName,
+          phone: formData.phone,
+        }
+      }
     });
 
-
-    if (error) {
-      alert(error.message);
-    } else {
-      alert("Signup successful! Check your email.");
-      navigate("/login");
+    if (authError) {
+      alert(authError.message);
+      return;
     }
+
+    // Also insert into profiles table if it exists (matching Profile.jsx expectations)
+    const { error: profileError } = await supabase
+      .from("profiles")
+      .insert([
+        {
+          id: authData.user.id,
+          username: formData.username,
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          provider: 'email'
+        },
+      ]);
+
+    if (profileError) {
+      console.error("Error creating profile:", profileError.message);
+      // We don't alert here because the auth succeeded, but we should log it.
+    }
+
+    alert("Signup successful! Check your email.");
+    navigate("/login");
   };
 
   return (

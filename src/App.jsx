@@ -14,6 +14,7 @@ import Transactions from "./pages/Transactions";
 import Payment from "./pages/Payment";
 import Analytics from "./pages/Analytics";
 import Information from "./pages/Information";
+import Profile from "./pages/Profile";
 
 /* Auth Pages */
 import Login from "./pages/Login";
@@ -24,7 +25,6 @@ function App() {
 
   return (
     <Routes>
-
       {/* ✅ AUTH ROUTES (NO SIDEBAR) */}
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
@@ -46,6 +46,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/information" element={<Information />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </Layout>
         }

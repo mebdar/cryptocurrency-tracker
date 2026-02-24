@@ -38,7 +38,7 @@ function App() {
             <Routes>
               <Route
                 path="/dashboard"
-                element={<Dashboard search={search} />}
+                element={<Dashboard search={search} setSearch={setSearch} />}
               />
 
               <Route path="/markets" element={<Markets search={search} />} />

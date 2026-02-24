@@ -1,0 +1,237 @@
+.floating-notifications {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 1000;
+    pointer-events: none;
+    /* Let clicks pass through empty spaces between cards */
+}
+
+.floating-notifications-gutter {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+    pointer-events: none;
+    width: 100%;
+}
+
+.notification-card {
+    pointer-events: auto;
+    background: rgba(30, 30, 40, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 24px;
+    width: 320px;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* Remove margin-bottom as gap handles it in the floating container */
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.notification-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-icon-wrapper.price-alert .yellow-circle {
+    width: 24px;
+    height: 24px;
+    background: #f7931a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coin-symbol {
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.notification-icon-wrapper.browser .blue-dot {
+    width: 12px;
+    height: 12px;
+    background: #3b82f6;
+    border-radius: 50%;
+}
+
+.notification-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.notification-close {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.notification-close:hover {
+    color: white;
+}
+
+.notification-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.notification-subtitle {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+.notification-target {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+}
+
+.notification-target span {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Specific to Price Alert */
+.view-alert-btn {
+    width: 100%;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    color: #3b82f6;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+
+.view-alert-btn:hover {
+    background: rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Browser variant tweaks */
+.notification-card.browser {
+    background: #161620;
+    /* Slightly darker as per image */
+    padding: 18px 24px;
+}
+
+.notification-card.browser .notification-title {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+}
+
+.notification-card.browser .notification-subtitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 4px;
+}
+
+/* Email variant styles */
+.notification-card.email {
+    background: #1a1a24;
+    padding: 24px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sender-tag {
+    font-size: 11px;
+    color: #64748b;
+}
+
+.email-app-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.email-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin-bottom: 12px !important;
+}
+
+.email-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.email-greeting,
+.email-desc,
+.email-footer-text {
+    font-size: 13px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.email-stats {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.email-stats li {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.email-stats li span {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.view-alert-btn.email-btn {
+    margin-top: 16px;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 15px;
+    padding: 12px;
+}
+
+.app-icon-small {
+    font-size: 12px;
+}

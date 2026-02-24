@@ -18,27 +18,27 @@ function Signup() {
   });
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    if(formData.password !== formData.confirmPassword){
-        alert("Passwords do not match");
-        return;
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
     }
 
     const { error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password
+      email: formData.email,
+      password: formData.password
     });
 
-    if(error){
-        alert(error.message);
+    if (error) {
+      alert(error.message);
     } else {
-        alert("Account created successfully!");
-        navigate("/login");
+      alert("Account created successfully!");
+      navigate("/login");
     }
   };
 
@@ -58,29 +58,29 @@ function Signup() {
           <div className="step">4</div>
         </div>
 
-        <input type="text" name="username" placeholder="Username" onChange={handleChange} required/>
-        <input type="text" name="fullName" placeholder="Full Name" onChange={handleChange} required/>
-        <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required/>
-        <input type="text" name="phone" placeholder="Phone Number" onChange={handleChange} required/>
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required/>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required/>
+        <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
+        <input type="text" name="fullName" placeholder="Full Name" onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required />
+        <input type="text" name="phone" placeholder="Phone Number" onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required />
 
         <button type="submit" className="auth-button">Continue</button>
 
         <p className="signup-text">
-            Already have an account?{" "}
-         <Link
-        to="/login"
-        onClick={async () => {
-            await supabase.auth.signOut(); // log out current user
-        }}
-            >
-               Sign In
-            </Link>
-</p>
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            onClick={async () => {
+              await supabase.auth.signOut(); // log out current user
+            }}
+          >
+            Sign In
+          </Link>
+        </p>
 
         <p className="terms-text">
-            By Proceeding, You Accept The Terms & Conditions And Privacy Policy.
+          By Proceeding, You Accept The Terms & Conditions And Privacy Policy.
         </p>
       </form>
     </div>

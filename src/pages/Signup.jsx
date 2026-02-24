@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "../services/SupabaseClient";
+import { supabase } from "../services/SupabaseClient"; // ✅ FIXED path (lowercase)
 
 import "../styles/authBase.css";
 import "../styles/signup.css";
@@ -8,6 +8,7 @@ import "../styles/signup.css";
 function Signup() {
   const navigate = useNavigate();
 
+  // ✅ Use ONE form state (you already had this)
   const [formData, setFormData] = useState({
     username: "",
     fullName: "",
@@ -17,13 +18,16 @@ function Signup() {
     confirmPassword: "",
   });
 
+  // ✅ Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // ✅ Supabase Signup Logic
   const handleSignup = async (e) => {
     e.preventDefault();
 
+    // Check password match
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
@@ -31,13 +35,14 @@ function Signup() {
 
     const { error } = await supabase.auth.signUp({
       email: formData.email,
-      password: formData.password
+      password: formData.password,
     });
+
 
     if (error) {
       alert(error.message);
     } else {
-      alert("Account created successfully!");
+      alert("Signup successful! Check your email.");
       navigate("/login");
     }
   };
@@ -58,25 +63,61 @@ function Signup() {
           <div className="step">4</div>
         </div>
 
-        <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-        <input type="text" name="fullName" placeholder="Full Name" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required />
-        <input type="text" name="phone" placeholder="Phone Number" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required />
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          onChange={handleChange}
+          required
+        />
 
-        <button type="submit" className="auth-button">Continue</button>
+        <input
+          type="text"
+          name="fullName"
+          placeholder="Full Name"
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone Number"
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          onChange={handleChange}
+          required
+        />
+
+        <button type="submit" className="auth-button">
+          Continue
+        </button>
 
         <p className="signup-text">
           Already have an account?{" "}
-          <Link
-            to="/login"
-            onClick={async () => {
-              await supabase.auth.signOut(); // log out current user
-            }}
-          >
-            Sign In
-          </Link>
+          <Link to="/login">Sign In</Link>
         </p>
 
         <p className="terms-text">

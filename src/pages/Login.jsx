@@ -1,13 +1,28 @@
 import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../services/SupabaseClient";
+import { useState } from "react";
 import "./Auth.css";
 
 function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // temporary login
-        navigate("/dashboard");
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        });
+
+        if (error) {
+            alert("Login failed: " + error.message);
+        } else {
+            alert("Login successful!");
+            navigate("/dashboard");
+            console.log("User:", data.user);
+        }
     };
 
     return (
@@ -16,11 +31,23 @@ function Login() {
                 <h2 className="auth-title">Sign In</h2>
 
                 <label>Email Address</label>
-                <input type="email" placeholder="Example@gmail.com" required />
+                <input
+                    type="email"
+                    placeholder="Example@gmail.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
 
                 <label>Password</label>
                 <div className="password-input">
-                    <input type="password" placeholder="********" required />
+                    <input
+                        type="password"
+                        placeholder="********"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
                     <span className="toggle-password">👁️</span>
                 </div>
 

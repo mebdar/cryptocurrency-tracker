@@ -1,6 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
-
+console.log(import.meta.env.VITE_SUPABASE_URL);
+console.log(import.meta.env.VITE_SUPABASE_ANON_KEY);
+import { supabase } from "./services/SupabaseClient";
+console.log("Supabase conneted:", supabase);
 /* Layout */
 import Layout from "./components/Layout";
 

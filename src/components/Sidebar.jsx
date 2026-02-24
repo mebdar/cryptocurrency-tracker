@@ -12,7 +12,7 @@ import "./Sidebar.css";
 export default function Sidebar() {
     return (
         <div className="sidebar">
-            <h2 className="logo">⚡ CryptoDashboard</h2>
+            <h2 className="logo">⚡ CryptoTracker</h2>
 
             <ul className="menu">
                 <li>

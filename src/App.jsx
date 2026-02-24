@@ -27,6 +27,7 @@ function App() {
 
       {/* ✅ AUTH ROUTES (NO SIDEBAR) */}
       <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
 
       {/* ✅ APP ROUTES (WITH SIDEBAR) */}

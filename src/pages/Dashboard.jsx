@@ -4,7 +4,6 @@ import MarketOverview from "../components/MarketOverview";
 import QuickTrade from "../components/Quicktrade";
 import NotificationCard from "../components/NotificationCard";
 import Alerts from "../components/Alerts";
-import WishlistWidget from "../components/WishlistWidget";
 
 export default function Dashboard({ search, setSearch }) {
     const [selectedCoin, setSelectedCoin] = useState({ id: "bitcoin", name: "Bitcoin", symbol: "btc" });
@@ -47,7 +46,6 @@ export default function Dashboard({ search, setSearch }) {
                 <div style={{ flex: "0.8 1 300px", minWidth: "300px", display: "flex", flexDirection: "column", gap: "30px" }}>
                     <QuickTrade />
                     <Alerts />
-                    <WishlistWidget />
                 </div>
 
                 {/* COLUMN 3 - Notifications (Right) */}

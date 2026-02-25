@@ -112,9 +112,18 @@ export default function EditProfileModal({ isOpen, onClose, profile, onProfileUp
                         <div className="input-group">
                             <input
                                 type="text"
-                                placeholder="Name"
+                                placeholder="Full Name"
                                 value={fullName}
                                 onChange={(e) => setFullName(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                         </div>
 

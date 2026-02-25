@@ -10,15 +10,16 @@ import Layout from "./components/Layout";
 /* Pages */
 import Dashboard from "./pages/Dashboard";
 import Markets from "./pages/Markets";
-import Transactions from "./pages/Transactions";
-import Payment from "./pages/Payment";
-import Analytics from "./pages/Analytics";
-import Information from "./pages/Information";
 import Profile from "./pages/Profile";
 
 /* Auth Pages */
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+
+/* Feature Pages */
+import Wishlist from "./pages/Wishlist";
+import Alerts from "./pages/Alerts";
+import Settings from "./pages/Settings";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -42,11 +43,10 @@ function App() {
               />
 
               <Route path="/markets" element={<Markets search={search} />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/payment" element={<Payment />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/information" element={<Information />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/alerts" element={<Alerts />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </Layout>
         }

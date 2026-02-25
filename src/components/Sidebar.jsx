@@ -1,69 +1,92 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
     LayoutDashboard,
-    ShoppingBag,
-    Shuffle,
-    CreditCard,
-    BarChart3,
-    Info
+    BarChart2,
+    Heart,
+    Bell,
+    Settings,
+    Radio,
+    CloudDownload,
+    Hexagon
 } from "lucide-react";
 import "./Sidebar.css";
 
 export default function Sidebar() {
+    const [newsEnabled, setNewsEnabled] = useState(true);
+
     return (
         <div className="sidebar">
-            <h2 className="logo">⚡ CryptoTracker</h2>
+            <div className="sidebar-top">
+                <div className="logo-section">
+                    <Hexagon className="logo-icon" size={24} fill="#8b5cf6" color="#8b5cf6" />
+                    <h2 className="logo-text">CryptoTracker</h2>
+                </div>
 
-            <ul className="menu">
-                <li>
-                    <NavLink to="/dashboard" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                        <LayoutDashboard size={19} />
-                        <span>Dashboard</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/markets" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                        <ShoppingBag size={19} />
-                        <span>Markets</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/transactions" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                        <Shuffle size={19} />
-                        <span>Transactions</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/payment" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                        <CreditCard size={19} />
-                        <span>Payment</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/analytics" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                        <BarChart3 size={19} />
-                        <span>Analytics</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/information" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-                        <Info size={19} />
-                        <span>Information</span>
-                    </NavLink>
-                </li>
-            </ul>
+                <ul className="menu">
+                    <li>
+                        <NavLink to="/dashboard" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                            <LayoutDashboard size={20} />
+                            <span>Dashboard</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/markets" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                            <BarChart2 size={20} />
+                            <span>Markets</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/wishlist" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                            <Heart size={20} />
+                            <span>Wishlist</span>
+                            <span className="notification-dot"></span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/alerts" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                            <Bell size={20} />
+                            <span>Alerts</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/settings" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+                            <Settings size={20} />
+                            <span>Settings</span>
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
 
-            {/* ⭐ BOTTOM LEFT CARD */}
-            <div className="upgrade-card">
-                <h3>Try the paid version!</h3>
-                <p>
-                    Try the paid version of our trading system and boost your investment returns.
-                </p>
+            <div className="sidebar-middle">
+                <div className="nav-item news-item">
+                    <div className="news-left">
+                        <Radio size={20} />
+                        <span>News</span>
+                    </div>
+                    <label className="switch">
+                        <input
+                            type="checkbox"
+                            checked={newsEnabled}
+                            onChange={() => setNewsEnabled(!newsEnabled)}
+                        />
+                        <span className="slider round"></span>
+                    </label>
+                </div>
 
-                <button className="upgrade-btn">
-                    Buy
+                <button className="wishlist-btn">
+                    <CloudDownload size={20} />
+                    <span>My Wishlist</span>
+                </button>
+            </div>
+
+
+            <div className="sidebar-bottom">
+                <button className="upgrade-plan-btn">
+                    Upgrade Plan
                 </button>
             </div>
         </div>
     );
 }
+

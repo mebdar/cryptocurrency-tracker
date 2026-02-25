@@ -1,38 +1,21 @@
 import { Bell, ArrowUpRight, ArrowDownRight, Info, X } from "lucide-react";
 import "./Alerts.css";
 
-const alertsData = [
-    {
-        id: 1,
-        type: "price_up",
-        title: "Bitcoin reached $65,000",
-        time: "2 mins ago",
-        icon: <ArrowUpRight size={16} className="alert-icon up" />,
-    },
-    {
-        id: 2,
-        type: "price_down",
-        title: "Ethereum dropped below $3,400",
-        time: "15 mins ago",
-        icon: <ArrowDownRight size={16} className="alert-icon down" />,
-    },
-    {
-        id: 3,
-        type: "news",
-        title: "New listing: Solana ecosystem token",
-        time: "1 hour ago",
-        icon: <Info size={16} className="alert-icon info" />,
-    },
-    {
-        id: 4,
-        type: "price_up",
-        title: "Cardano (ADA) is up 5% today",
-        time: "3 hours ago",
-        icon: <ArrowUpRight size={16} className="alert-icon up" />,
-    },
-];
+export default function Alerts({ alerts = [] }) {
+    // Sort triggered alerts by time descending
+    const sortedAlerts = [...alerts].sort((a, b) => new Date(b.triggered_at) - new Date(a.triggered_at));
 
-export default function Alerts() {
+    const getTimeAgo = (date) => {
+        if (!date) return "Just now";
+        const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+        if (seconds < 60) return "Just now";
+        const minutes = Math.floor(seconds / 60);
+        if (minutes < 60) return `${minutes}m ago`;
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return `${hours}h ago`;
+        return new Date(date).toLocaleDateString();
+    };
+
     return (
         <div className="alerts-container">
             <div className="alerts-header">
@@ -44,22 +27,35 @@ export default function Alerts() {
             </div>
 
             <div className="alerts-list">
-                {alertsData.map((alert) => (
-                    <div key={alert.id} className="alert-item">
-                        <div className="alert-left">
-                            <div className={`icon-wrapper ${alert.type}`}>
-                                {alert.icon}
+                {sortedAlerts.length > 0 ? (
+                    sortedAlerts.map((alert) => (
+                        <div key={alert.id} className="alert-item">
+                            <div className="alert-left">
+                                <div className={`icon-wrapper ${alert.condition === "above" ? "price_up" : "price_down"}`}>
+                                    {alert.condition === "above" ? (
+                                        <ArrowUpRight size={16} className="alert-icon up" />
+                                    ) : (
+                                        <ArrowDownRight size={16} className="alert-icon down" />
+                                    )}
+                                </div>
+                                <div className="alert-content">
+                                    <p className="alert-item-title">
+                                        {alert.coin_name} reached ${alert.target_price}
+                                    </p>
+                                    <span className="alert-time">{getTimeAgo(alert.triggered_at)}</span>
+                                </div>
                             </div>
-                            <div className="alert-content">
-                                <p className="alert-item-title">{alert.title}</p>
-                                <span className="alert-time">{alert.time}</span>
-                            </div>
+                            <button className="alert-close">
+                                <X size={14} />
+                            </button>
                         </div>
-                        <button className="alert-close">
-                            <X size={14} />
-                        </button>
+                    ))
+                ) : (
+                    <div className="empty-alerts" style={{ textAlign: "center", padding: "20px", color: "#64748b" }}>
+                        <Info size={20} style={{ marginBottom: "8px" }} />
+                        <p style={{ fontSize: "12px" }}>No recent alerts triggered.</p>
                     </div>
-                ))}
+                )}
             </div>
 
             <button className="setup-alert-btn">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getCoins } from "../services/api";
 import { Search, Heart, Bell, ArrowUpRight, ChevronDown } from "lucide-react";
 import { supabase } from "../services/SupabaseClient";
+import PriceAlertModal from "./PriceAlertModal";
 import "./MarketOverview.css";
 
 export default function MarketOverview({
@@ -9,26 +10,35 @@ export default function MarketOverview({
   setSearch,
   onSelectCoin,
   selectedCoinId,
+  externalCoins, // From Dashboard
+  externalAlerts, // From Dashboard
+  onRefreshAlerts
 }) {
   const [coins, setCoins] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  const [alerts, setAlerts] = useState([]);
   const [user, setUser] = useState(null);
-  const [loadingWishlist, setLoadingWishlist] = useState(true);
+  const [loadingAlerts, setLoadingAlerts] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCoinForAlert, setSelectedCoinForAlert] = useState(null);
 
   /* ===============================
-     LOAD COINS
+     LOAD COINS (if no external)
   =============================== */
   useEffect(() => {
-    getCoins().then((data) => {
-      setCoins(data);
-    });
-  }, []);
+    if (!externalCoins) {
+      getCoins().then((data) => {
+        setCoins(data);
+      });
+    }
+  }, [externalCoins]);
+
+  const displayCoins = externalCoins || coins;
 
   /* ===============================
-     LOAD USER + WISHLIST
+     LOAD USER + ALERTS (if no external)
   =============================== */
   useEffect(() => {
-    const loadUserAndWishlist = async () => {
+    const loadUserAndAlerts = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -36,70 +46,88 @@ export default function MarketOverview({
       setUser(user);
 
       if (!user) {
-        setLoadingWishlist(false);
+        setLoadingAlerts(false);
         return;
       }
 
-      const { data, error } = await supabase
-        .from("wishlist")
-        .select("coin_id");
+      if (externalAlerts) {
+        setLoadingAlerts(false);
+      } else {
+        const { data, error } = await supabase
+          .from("alerts")
+          .select("coin_id")
+          .eq("user_id", user.id);
 
-      if (!error && data) {
-        setWishlist(data.map((item) => item.coin_id));
+        if (!error && data) {
+          setAlerts(data.map((item) => item.coin_id));
+        }
+        setLoadingAlerts(false);
       }
-
-      setLoadingWishlist(false);
     };
 
-    loadUserAndWishlist();
-  }, []);
+    loadUserAndAlerts();
+  }, [externalAlerts]);
+
+  const displayAlerts = externalAlerts ? externalAlerts.map(a => a.coin_id) : alerts;
 
   /* ===============================
-     TOGGLE WISHLIST
+     HEART CLICK -> TOGGLE ALERT
   =============================== */
-  const toggleWishlist = async (coinId, e) => {
+  const handleHeartClick = async (coin, e) => {
     e.stopPropagation(); // prevent row click
 
     if (!user) {
-      console.log("User not logged in");
+      alert("Please log in to set alerts");
       return;
     }
 
-    const isInWishlist = wishlist.includes(coinId);
+    const hasAlert = displayAlerts.includes(coin.id);
 
-    if (isInWishlist) {
-      const { error } = await supabase
-        .from("wishlist")
-        .delete()
-        .eq("coin_id", coinId);
+    if (hasAlert) {
+      if (window.confirm(`Remove all alerts for ${coin.name}? This will remove it from your wishlist.`)) {
+        try {
+          const { error } = await supabase
+            .from("alerts")
+            .delete()
+            .eq("user_id", user.id)
+            .eq("coin_id", coin.id);
 
-      if (!error) {
-        setWishlist((prev) => prev.filter((id) => id !== coinId));
+          if (error) throw error;
+
+          if (onRefreshAlerts) {
+            onRefreshAlerts();
+          } else {
+            setAlerts(prev => prev.filter(id => id !== coin.id));
+          }
+        } catch (error) {
+          console.error("Error removing alert:", error);
+          alert("Failed to remove alert");
+        }
       }
     } else {
-      const { error } = await supabase.from("wishlist").insert({
-        user_id: user.id,
-        coin_id: coinId,
-      });
+      setSelectedCoinForAlert(coin);
+      setIsModalOpen(true);
+    }
+  };
 
-      if (!error) {
-        setWishlist((prev) => [...prev, coinId]);
-      } else if (error.code === "23505") {
-        console.log("Already in wishlist");
-      }
+  const handleAlertSaved = (coinId) => {
+    if (onRefreshAlerts) {
+      onRefreshAlerts();
+    } else if (!displayAlerts.includes(coinId)) {
+      setAlerts((prev) => [...prev, coinId]);
     }
   };
 
   /* ===============================
      FILTER COINS
   =============================== */
-  const filteredCoins = coins
+  const filteredCoins = displayCoins
     .filter((coin) =>
       coin.name.toLowerCase().includes(search?.toLowerCase() || "")
     )
     .slice(0, 10);
 
-  if (!coins.length) return <p className="loading">Loading coins...</p>;
+  if (!displayCoins.length) return <p className="loading">Loading coins...</p>;
 
   return (
     <div className="market-container">
@@ -131,99 +159,88 @@ export default function MarketOverview({
         </div>
 
         <div className="table-body">
-          {filteredCoins.map((coin) => (
-            <div
-              key={coin.id}
-              className={`table-row ${selectedCoinId === coin.id ? "selected" : ""
-                }`}
-              onClick={() =>
-                onSelectCoin({
-                  id: coin.id,
-                  name: coin.name,
-                  symbol: coin.symbol,
-                })
-              }
-            >
-              {/* Coin Info */}
-              <div className="col-coin coin-info">
-                <img
-                  src={coin.image}
-                  alt={coin.name}
-                  className="coin-logo"
-                />
-                <div className="coin-text">
-                  <span className="coin-name">{coin.name}</span>
-                  <span className="coin-symbol">
-                    {coin.symbol.toUpperCase()}
+          {filteredCoins.map((coin) => {
+            const hasAlert = displayAlerts.includes(coin.id);
+            return (
+              <div
+                key={coin.id}
+                className={`table-row ${selectedCoinId === coin.id ? "selected" : ""}`}
+                onClick={() =>
+                  onSelectCoin({
+                    id: coin.id,
+                    name: coin.name,
+                    symbol: coin.symbol,
+                  })
+                }
+              >
+                {/* Coin Info */}
+                <div className="col-coin coin-info">
+                  <img src={coin.image} alt={coin.name} className="coin-logo" />
+                  <div className="coin-text">
+                    <span className="coin-name">{coin.name}</span>
+                    <span className="coin-symbol">{coin.symbol.toUpperCase()}</span>
+                  </div>
+                </div>
+
+                {/* Price */}
+                <div className="col-price">
+                  <span className="price-value">
+                    ${coin.current_price.toLocaleString()}
                   </span>
                 </div>
+
+                {/* Change */}
+                <div className="col-change">
+                  <span
+                    className={`percent-value ${coin.price_change_percentage_24h >= 0 ? "positive" : "negative"}`}
+                  >
+                    {coin.price_change_percentage_24h >= 0 ? "+" : ""}
+                    {coin.price_change_percentage_24h?.toFixed(2)}%
+                  </span>
+                </div>
+
+                {/* Actions */}
+                <div className="col-actions row-actions">
+                  {/* Heart / Alert Button */}
+                  <button
+                    className="action-btn"
+                    onClick={(e) => handleHeartClick(coin, e)}
+                    disabled={loadingAlerts}
+                  >
+                    <Heart
+                      size={14}
+                      fill={hasAlert ? "red" : "none"}
+                      color={hasAlert ? "red" : "currentColor"}
+                    />
+                  </button>
+
+                  {/* Alert Button (redundant now but keeping UI) */}
+                  <button className="action-btn" onClick={(e) => handleHeartClick(coin, e)}>
+                    <Bell size={14} />
+                  </button>
+
+                  {/* External Link */}
+                  <button className="action-btn-link" onClick={(e) => e.stopPropagation()}>
+                    <ArrowUpRight size={14} />
+                  </button>
+                </div>
               </div>
-
-              {/* Price */}
-              <div className="col-price">
-                <span className="price-value">
-                  ${coin.current_price.toLocaleString()}
-                </span>
-              </div>
-
-              {/* Change */}
-              <div className="col-change">
-                <span
-                  className={`percent-value ${coin.price_change_percentage_24h >= 0
-                    ? "positive"
-                    : "negative"
-                    }`}
-                >
-                  {coin.price_change_percentage_24h >= 0 ? "+" : ""}
-                  {coin.price_change_percentage_24h?.toFixed(2)}%
-                </span>
-              </div>
-
-              {/* Actions */}
-              <div className="col-actions row-actions">
-                {/* Wishlist Button */}
-                <button
-                  className="action-btn"
-                  onClick={(e) => toggleWishlist(coin.id, e)}
-                  disabled={loadingWishlist}
-                >
-                  <Heart
-                    size={14}
-                    fill={
-                      wishlist.includes(coin.id) ? "red" : "none"
-                    }
-                    color={
-                      wishlist.includes(coin.id)
-                        ? "red"
-                        : "currentColor"
-                    }
-                  />
-                </button>
-
-                {/* Alert Button (future feature) */}
-                <button
-                  className="action-btn"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Bell size={14} />
-                </button>
-
-                {/* External Link */}
-                <button
-                  className="action-btn-link"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <ArrowUpRight size={14} />
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       <button className="manage-alerts-btn">
         Manage Alerts <span>›</span>
       </button>
+
+      {/* Price Alert Modal */}
+      <PriceAlertModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        coin={selectedCoinForAlert}
+        onAlertSaved={handleAlertSaved}
+      />
     </div>
   );
 }

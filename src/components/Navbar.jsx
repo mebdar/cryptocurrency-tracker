@@ -79,8 +79,8 @@ function Navbar({ search, setSearch }) {
         navigate("/login");
     };
 
-    const displayName = profile?.username || user?.email?.split("@")[0] || "Guest";
-    const initial = displayName.charAt(0).toUpperCase();
+    const displayName = profile?.full_name || profile?.username || user?.email?.split("@")[0] || "Guest";
+    const initial = (profile?.full_name || profile?.username || "G").charAt(0).toUpperCase();
 
     return (
         <div className="navbar">

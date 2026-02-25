@@ -1,0 +1,105 @@
+.wishlist-card {
+    background: #111827;
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 350px;
+    color: #fff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.wishlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.wishlist-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.dots {
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.wishlist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wishlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1f2937;
+    padding: 12px;
+    border-radius: 14px;
+    transition: 0.3s ease;
+}
+
+.wishlist-item:hover {
+    background: #273549;
+}
+
+.wishlist-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.coin-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.coin-name {
+    font-weight: 600;
+    margin: 0;
+}
+
+.coin-sub {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 0;
+}
+
+.wishlist-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.coin-change {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.positive {
+    color: #22c55e;
+}
+
+.negative {
+    color: #ef4444;
+}
+
+.heart-btn {
+    background: #ef4444;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 8px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heart-btn:hover {
+    opacity: 0.8;
+}

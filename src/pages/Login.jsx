@@ -9,6 +9,7 @@ function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // 👈 added
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -42,13 +43,20 @@ function Login() {
 
                 <div className="password-input">
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}   // 👈 changed
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <span className="toggle-password">👁️</span>
+
+                    <span
+                        className="toggle-password"
+                        onClick={() => setShowPassword(!showPassword)}   // 👈 added
+                        style={{ cursor: "pointer" }}
+                    >
+                        {showPassword ? "🙈" : "👁️"}
+                    </span>
                 </div>
 
                 <div className="auth-options">

@@ -50,6 +50,42 @@
     border-radius: 10px;
 }
 
+.wishlist-middle {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.active-alerts-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(59, 130, 246, 0.1);
+    color: #60a5fa;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+    gap: 16px;
+}
+
+.empty-msg {
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
 .wishlist-item {
     display: flex;
     justify-content: space-between;

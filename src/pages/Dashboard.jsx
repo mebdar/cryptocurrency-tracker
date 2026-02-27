@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import SalesChart from "../components/SalesChart";
 import MarketOverview from "../components/MarketOverview";
 import QuickTrade from "../components/Quicktrade";
 import NotificationCard from "../components/NotificationCard";
 import Alerts from "./Alerts";
 import Wishlist from "./Wishlist";
+import { supabase } from "../services/SupabaseClient";
+import { getCoins } from "../services/api";
 
 export default function Dashboard({ search, setSearch }) {
     const [selectedCoin, setSelectedCoin] = useState({
@@ -59,6 +61,9 @@ export default function Dashboard({ search, setSearch }) {
                         setSearch={setSearch}
                         onSelectCoin={setSelectedCoin}
                         selectedCoinId={selectedCoin.id}
+                        externalCoins={coins} // Pass coins down
+                        externalAlerts={alerts} // Pass alerts down
+                        onRefreshAlerts={fetchAlerts}
                     />
 
                     <Alerts />
@@ -73,7 +78,7 @@ export default function Dashboard({ search, setSearch }) {
                     }}
                 >
                     <QuickTrade />
-                    <Wishlist />
+                    <Wishlist externalAlerts={alerts} />
                 </div>
 {/* RIGHT COLUMN - NOTIFICATIONS */}
 <div className="notifications-column">

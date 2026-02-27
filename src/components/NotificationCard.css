@@ -1,40 +1,28 @@
-.floating-notifications {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    z-index: 1000;
-    pointer-events: none;
-    /* Let clicks pass through empty spaces between cards */
-}
-
-.floating-notifications-gutter {
+/* NOTIFICATIONS COLUMN CONTAINER */
+.notifications-column {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    z-index: 1000;
-    pointer-events: none;
     width: 100%;
 }
 
+/* CARD */
 .notification-card {
-    pointer-events: auto;
     background: rgba(30, 30, 40, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 24px;
     padding: 24px;
-    width: 320px;
+    width: 100%;
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
     gap: 16px;
-    /* Remove margin-bottom as gap handles it in the floating container */
+    
 }
 
+/* HEADER */
 .notification-header {
     display: flex;
     justify-content: space-between;
@@ -63,12 +51,6 @@
     justify-content: center;
 }
 
-.coin-symbol {
-    color: white;
-    font-size: 14px;
-    font-weight: 800;
-}
-
 .notification-icon-wrapper.browser .blue-dot {
     width: 12px;
     height: 12px;
@@ -88,13 +70,13 @@
     color: #64748b;
     cursor: pointer;
     padding: 4px;
-    transition: color 0.2s;
 }
 
 .notification-close:hover {
     color: white;
 }
 
+/* BODY */
 .notification-body {
     display: flex;
     flex-direction: column;
@@ -117,7 +99,7 @@
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* Specific to Price Alert */
+/* BUTTON */
 .view-alert-btn {
     width: 100%;
     padding: 14px;
@@ -128,8 +110,7 @@
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
-    margin-top: 8px;
+    transition: 0.2s;
 }
 
 .view-alert-btn:hover {
@@ -137,10 +118,9 @@
     transform: translateY(-2px);
 }
 
-/* Browser variant tweaks */
+/* BROWSER VARIANT */
 .notification-card.browser {
     background: #161620;
-    /* Slightly darker as per image */
     padding: 18px 24px;
 }
 
@@ -154,13 +134,11 @@
     font-size: 18px;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.9);
-    margin-top: 4px;
 }
 
-/* Email variant styles */
+/* EMAIL VARIANT */
 .notification-card.email {
     background: #1a1a24;
-    padding: 24px;
 }
 
 .header-right {
@@ -180,15 +158,13 @@
     gap: 8px;
     font-size: 14px;
     font-weight: 600;
-    color: #ffffff;
     margin-bottom: 20px;
 }
 
 .email-title {
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    margin-bottom: 12px !important;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
 }
 
 .email-details {
@@ -202,7 +178,6 @@
 .email-footer-text {
     font-size: 13px;
     color: #94a3b8;
-    margin: 0;
 }
 
 .email-stats {
@@ -227,11 +202,6 @@
 .view-alert-btn.email-btn {
     margin-top: 16px;
     background: rgba(30, 41, 59, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.05);
     font-size: 15px;
     padding: 12px;
-}
-
-.app-icon-small {
-    font-size: 12px;
 }

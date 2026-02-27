@@ -1,0 +1,69 @@
+.dashboard-container {
+  padding: 26px;
+  width: 100%;
+  max-width: 1650px;
+  margin: auto;
+}
+
+.dashboard-title {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+/* MAIN GRID — PERFECTLY BALANCED */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.45fr)
+    minmax(0, 1fr)
+    300px;                 /* fixed notification column */
+  gap: 34px;               /* professional spacing */
+  align-items: start;
+}
+
+/* COLUMNS */
+.left-column,
+.middle-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* RIGHT COLUMN */
+.right-column {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* CARD BASE STYLE */
+.card-style {
+  background: linear-gradient(180deg, #111827, #0f172a);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 18px;
+  box-shadow: 0 14px 32px rgba(0,0,0,0.45);
+}
+
+/* QUICKTRADE */
+.quicktrade-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* ALERTS */
+.alerts-container {
+  min-height: 130px;
+}
+
+/* WISHLIST */
+.wishlist-card {
+  padding: 16px;
+}
+
+/* PREVENT ANY CHILD FROM BREAKING GRID */
+.dashboard-grid * {
+  min-width: 0;
+}

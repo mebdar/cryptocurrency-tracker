@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Settings as SettingsIcon, Bell, Shield, User, CreditCard, HelpCircle } from "lucide-react";
+import { supabase } from "../services/SupabaseClient";
 import "./Settings.css";
 
 const Settings = () => {
+    const [profile, setProfile] = useState({
+        full_name: "Loading...",
+        email: "Loading...",
+    });
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const { data } = await supabase
+                    .from("profiles")
+                    .select("*")
+                    .eq("id", user.id)
+                    .single();
+
+                setProfile({
+                    full_name: data?.full_name || user.user_metadata?.full_name || "User",
+                    email: user.email,
+                });
+            }
+        };
+        fetchProfile();
+    }, []);
+
     return (
         <div className="settings-container">
             <div className="settings-header">
@@ -21,14 +46,14 @@ const Settings = () => {
                         <div className="setting-item">
                             <div className="setting-info">
                                 <p className="setting-label">Display Name</p>
-                                <p className="setting-value">John Doe</p>
+                                <p className="setting-value">{profile.full_name}</p>
                             </div>
                             <button className="edit-link">Edit</button>
                         </div>
                         <div className="setting-item">
                             <div className="setting-info">
                                 <p className="setting-label">Email Address</p>
-                                <p className="setting-value">john.doe@example.com</p>
+                                <p className="setting-value">{profile.email}</p>
                             </div>
                             <button className="edit-link">Change</button>
                         </div>

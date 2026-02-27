@@ -88,11 +88,31 @@ export default function Dashboard({ search, setSearch }) {
 
         if (!error) {
             showBrowserNotification(alert);
-            // Simulate Email Sent
-            console.log(`Email notification sent for ${alert.coin_name}`);
+
+            // send an email via Supabase Edge Function
+            try {
+                if (user?.email) {
+                    const { error: funcError } = await supabase.functions.invoke("send-alert-email", {
+                        body: {
+                            email: user.email,
+                            coin: alert.coin_name,
+                            price: alert.target_price,
+                            condition: alert.condition,
+                        },
+                    });
+
+                    if (funcError) throw funcError;
+                    console.log(`Email notification sent for ${alert.coin_name}`);
+                } else {
+                    console.warn("User email not found, skipping email notification");
+                }
+            } catch (err) {
+                console.error("Failed to send alert email", err);
+            }
+
             fetchAlerts(); // refresh UI
         }
-    }, [fetchAlerts, showBrowserNotification]);
+    }, [fetchAlerts, showBrowserNotification, user]);
 
     /* ===============================
        4. PRICE CHECK LOGIC

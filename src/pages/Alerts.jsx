@@ -1,9 +1,39 @@
+import { useState, useEffect } from "react";
 import { Bell, ArrowUpRight, ArrowDownRight, Info, X } from "lucide-react";
+import { supabase } from "../services/SupabaseClient";
 import "./Alerts.css";
 
-export default function Alerts({ alerts = [] }) {
+export default function Alerts({ alerts: externalAlerts }) {
+    const [fetchedAlerts, setFetchedAlerts] = useState([]);
+
+    useEffect(() => {
+        if (externalAlerts) return;
+
+        const fetchAlerts = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return;
+
+            const { data, error } = await supabase
+                .from("alerts")
+                .select("*")
+                .eq("user_id", user.id);
+
+            if (!error && data) {
+                setFetchedAlerts(data);
+            }
+        };
+
+        fetchAlerts();
+    }, [externalAlerts]);
+
+    const displayAlerts = (externalAlerts || fetchedAlerts).filter(a => a.is_triggered);
+
     // Sort triggered alerts by time descending
-    const sortedAlerts = [...alerts].sort((a, b) => new Date(b.triggered_at) - new Date(a.triggered_at));
+    const sortedAlerts = [...displayAlerts].sort((a, b) => {
+        const dateA = a.triggered_at ? new Date(a.triggered_at) : new Date(0);
+        const dateB = b.triggered_at ? new Date(b.triggered_at) : new Date(0);
+        return dateB - dateA;
+    });
 
     const getTimeAgo = (date) => {
         if (!date) return "Just now";
@@ -40,7 +70,7 @@ export default function Alerts({ alerts = [] }) {
                                 </div>
                                 <div className="alert-content">
                                     <p className="alert-item-title">
-                                        {alert.coin_name} reached ${alert.target_price}
+                                        {alert.coin_name || alert.coin_id} reached ${alert.target_price}
                                     </p>
                                     <span className="alert-time">{getTimeAgo(alert.triggered_at)}</span>
                                 </div>

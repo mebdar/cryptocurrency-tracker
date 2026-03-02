@@ -3,13 +3,13 @@
     padding: 18px;
     border-radius: 20px;
     color: #ffffff;
-    width: 90%;
+    width: 100%;
     border: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden; /* keep children inside */
 
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 10px; /* reduced from 18px */
 
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
     transition: 0.25s ease;
@@ -74,7 +74,7 @@
 .trade-inputs {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* more vertical room so the swap button sits cleanly between fields */
+    gap: 12px; /* reduced from 20px */
     position: relative;
     margin: 6px auto 0; /* center horizontally */
     width: 100%;

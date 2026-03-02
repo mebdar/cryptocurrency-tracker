@@ -25,6 +25,28 @@ function Login() {
             alert("Login successful!");
             navigate("/dashboard");
             console.log("User:", data.user);
+
+            // Ensure a profile row exists for this user (creates or updates)
+            try {
+                const user = data.user;
+                if (user && user.id) {
+                    const { data: profileData, error: profileError } = await supabase
+                        .from('profiles')
+                        .upsert([
+                            {
+                                id: user.id,
+                                email: user.email || null,
+                                full_name: user.user_metadata?.full_name || null,
+                                updated_at: new Date(),
+                            },
+                        ], { returning: 'minimal' });
+
+                    if (profileError) console.error('Profile upsert error:', profileError);
+                    else console.log('Profile upserted for user', user.id);
+                }
+            } catch (err) {
+                console.error('Failed to ensure profile row:', err);
+            }
         }
     };
 

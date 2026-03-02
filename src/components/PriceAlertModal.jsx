@@ -36,15 +36,20 @@ const PriceAlertModal = ({ isOpen, onClose, coin, onAlertSaved }) => {
             return;
         }
 
-        setLoading(false);
+        setLoading(true);
         try {
-            const { error } = await supabase.from("alerts").insert({
-                user_id: user.id,
-                coin_id: coin.id,
-                coin_name: coin.name,
-                target_price: parseFloat(targetPrice),
-                condition: condition
-            });
+            console.log("Saving alert for user:", user);
+            const { data, error } = await supabase.from("alerts").insert([
+                {
+                    user_id: user.id,
+                    coin_id: coin.id,
+                    coin_name: coin.name,
+                    target_price: parseFloat(targetPrice),
+                    condition: condition,
+                },
+            ]);
+
+            console.log("Insert result:", { data, error });
 
             if (error) throw error;
 

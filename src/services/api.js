@@ -1,14 +1,41 @@
-// src/services/api.js
+const CACHE_KEY = "coingecko_coins_cache";
+const CACHE_EXPIRY = 2 * 60 * 1000; // 2 minutes in milliseconds
+
 export const getCoins = async () => {
   try {
+    // 1. Check if we have cached data
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+      // 2. If data is less than 2 minutes old, return it directly
+      if (Date.now() - timestamp < CACHE_EXPIRY) {
+        console.log("Serving coins from cache...");
+        return data;
+      }
+    }
+
+    // 3. Fallback to API if no cache or cache expired
+    console.log("Fetching fresh coins from API...");
     const response = await fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1"
     );
     const data = await response.json();
-    return data; // must return data
+
+    // 4. Update the cache
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+      data,
+      timestamp: Date.now()
+    }));
+
+    return data;
   } catch (error) {
     console.error("Error fetching coins:", error);
-    return []; // return empty array if API fails
+    // 5. If API fails, try to return expired cache as absolute last resort
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      return JSON.parse(cached).data;
+    }
+    return [];
   }
 };
 export const getCoinHistory = async (id = "bitcoin") => {

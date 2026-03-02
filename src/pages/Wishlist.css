@@ -5,10 +5,13 @@
 
     width: 100%;
     max-width: none;
+    min-height: 250px;
 
     color: #fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-}.wishlist-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.wishlist-card:hover {
     transform: translateY(-2px);
     transition: 0.25s ease;
 }
@@ -18,11 +21,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2px; /* smaller gap */
+    margin-bottom: 2px;
+    /* smaller gap */
 }
 
 .wishlist-header h3 {
-    font-size: 10px;  /* smaller title */
+    font-size: 10px;
+    /* smaller title */
     font-weight: 600;
     margin: 0;
 }
@@ -36,8 +41,10 @@
 .wishlist-list {
     display: flex;
     flex-direction: column;
-    gap: 3px;          /* smaller gap */
-    max-height: 100px; /* compact height */
+    gap: 3px;
+    /* smaller gap */
+    max-height: 300px;
+    /* compact height */
     overflow-y: auto;
 }
 
@@ -74,7 +81,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 30px 10px;
+    padding: 30px 30px;
     gap: 16px;
 }
 
@@ -83,7 +90,7 @@
     color: #64748b;
     font-size: 14px;
     margin: 0;
-    line-height: 1.5;
+    line-height: 2.5;
 }
 
 .wishlist-item {
@@ -91,7 +98,8 @@
     justify-content: space-between;
     align-items: center;
     background: #1f2937;
-    padding: 3px 5px;   /* smaller padding */
+    padding: 3px 5px;
+    /* smaller padding */
     border-radius: 6px;
     transition: 0.3s ease;
 }
@@ -107,7 +115,8 @@
 }
 
 .coin-avatar {
-    width: 20px;   /* smaller avatar */
+    width: 20px;
+    /* smaller avatar */
     height: 20px;
     border-radius: 50%;
     background: linear-gradient(135deg, #f59e0b, #ef4444);
@@ -115,12 +124,14 @@
 
 .coin-name {
     font-weight: 600;
-    font-size: 9px; /* smaller text */
+    font-size: 9px;
+    /* smaller text */
     margin: 0;
 }
 
 .coin-sub {
-    font-size: 7px; /* smaller subtext */
+    font-size: 7px;
+    /* smaller subtext */
     color: #9ca3af;
     margin: 0;
 }
@@ -132,7 +143,8 @@
 }
 
 .coin-change {
-    font-size: 9px; /* smaller change text */
+    font-size: 9px;
+    /* smaller change text */
     font-weight: 600;
 }
 
@@ -148,13 +160,15 @@
     background: #ef4444;
     border: none;
     border-radius: 5px;
-    padding: 3px 5px; /* smaller button */
+    padding: 3px 5px;
+    /* smaller button */
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 9px;   /* smaller font */
+    font-size: 9px;
+    /* smaller font */
 }
 
 .heart-btn:hover {

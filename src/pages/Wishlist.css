@@ -111,7 +111,16 @@
 .wishlist-left {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 8px; /* a little more breathing room for the image */
+}
+
+/* the image coming from the API can be huge; constrain it so it can't overflow the row */
+.coin-avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0; /* prevent it from shrinking oddly if row gets tight */
 }
 
 .coin-avatar {

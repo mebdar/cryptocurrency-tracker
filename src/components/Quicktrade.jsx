@@ -37,7 +37,7 @@ export default function QuickTrade() {
                 </div>
 
                 <div className="swap-icon-wrapper">
-                    <ArrowDownUp size={16} />
+                    <ArrowDownUp size={14} />
                 </div>
 
                 <div className="input-group">

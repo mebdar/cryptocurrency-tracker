@@ -1,10 +1,11 @@
 .quicktrade-container {
-    background: linear-gradient(180deg, #111827, #0f172a);
-    padding: 22px;
+    background: linear-gradient(180deg, #1547b3, #0f172a);
+    padding: 18px;
     border-radius: 20px;
     color: #ffffff;
     width: 90%;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden; /* keep children inside */
 
     display: flex;
     flex-direction: column;
@@ -73,22 +74,24 @@
 .trade-inputs {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px; /* more vertical room so the swap button sits cleanly between fields */
     position: relative;
-    margin-top: 6px;
-
+    margin: 6px auto 0; /* center horizontally */
+    width: 100%;
+    max-width: 320px; /* constrain so fields aren't edge-to-edge */
 }
 
 .input-group {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    width: 100%;
 }
 
 .input-group label {
     font-size: 10px;
     font-weight: 600;
-    color: #64748b;
+    color: #648b77;
     margin-left: 1px;
 }
 
@@ -96,10 +99,12 @@
     background: rgba(30, 41, 59, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 8px;
-    padding: 4px 7px;
+    padding: 4px 9px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%; /* never exceed its parent */
+    box-sizing: border-box;
 }
 
 .input-field:focus-within {
@@ -130,8 +135,8 @@
     transform: translate(-50%, -50%);
     background: #1e293b;
     border: 3px solid #0f0f15;
-    width: 34px;
-    height: 34px;
+    width: 30px; /* slightly smaller wrapper */
+    height: 30px;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -139,6 +144,12 @@
     color: #94a3b8;
     z-index: 10;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* downsize the icon inside to reduce coverage */
+.swap-icon-wrapper svg {
+    width: 16px;
+    height: 16px;
 }
 
 .trade-info {

@@ -198,7 +198,7 @@ export default function Dashboard({ search, setSearch }) {
                         onRefreshAlerts={fetchAlerts}
                     />
 
-                    <Alerts />
+                    <Alerts alerts={alerts.filter(a => a.is_triggered)} />
                 </div>
 
                 {/* MIDDLE COLUMN */}
@@ -206,7 +206,7 @@ export default function Dashboard({ search, setSearch }) {
                     style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "30px"
+                        gap: "12px"
                     }}
                 >
                     <QuickTrade />

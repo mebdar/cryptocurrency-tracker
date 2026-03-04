@@ -175,9 +175,11 @@ export default function Dashboard({ search, setSearch }) {
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "1.4fr 0.9fr 380px",
-                    gap: "30px",
-                    alignItems: "start"
+                    /* distribute space more evenly on large displays */
+                    gridTemplateColumns: "1.2fr 0.9fr minmax(240px, 1fr)",
+                    gap: "12px",
+                    alignItems: "start",
+                    width: "100%"
                 }}
             >
                 {/* LEFT COLUMN */}
